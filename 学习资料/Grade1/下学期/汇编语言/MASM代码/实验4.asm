@@ -1,0 +1,49 @@
+DATAS SEGMENT
+	VARB DB 14, -25, 66, -17, 78, -33, 46
+		 DB -96, 71, 80
+	ODDNUM DB 0
+	EVENNUM DB 0
+DATAS ENDS
+
+STACKS SEGMENT
+    DW 20H DUP(0)
+STACKS ENDS
+
+CODES SEGMENT
+    ASSUME CS:CODES,DS:DATAS,SS:STACKS
+START:
+    MOV AX,DATAS
+    MOV DS,AX
+    
+    MOV SI, OFFSET BYTE PTR VARB
+    MOV CL, 10
+    
+    LOOP:
+    	MOV AL, [SI]
+    	TEST AL, 80H
+    	JNZ NP
+    	JMP PO
+    
+    NP:
+    	NEG AL
+    PO:
+    	TEST AL, 01H
+    	JZ EVEN
+    	JMP ODD
+    
+    EVEN:
+    	ADD EVENNUM, 1
+    	JMP L
+    ODD:
+    	ADD ODDNUM, 1
+    
+    L:
+    	DEC CX
+    	IINC SI
+    	JNZ LOOP
+    	
+    
+    MOV AH,4CH
+    INT 21H
+CODES ENDS
+    END START

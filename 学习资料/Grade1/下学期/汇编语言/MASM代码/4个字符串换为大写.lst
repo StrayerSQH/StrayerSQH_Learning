@@ -1,0 +1,106 @@
+Microsoft (R) Macro Assembler Version 6.11		    04/01/24 18:13:08
+tempfile.asm						     Page 1 - 1
+
+
+ 0000				DATAS SEGMENT
+ 0000 77 65 6C 63 6F 6D		    string1 db 'welcome to masm!''0'
+       65 20 74 6F 20 6D
+       61 73 6D 21 27 30
+ 0012 77 68 61 74 20 69		    string2 db 'what is teacher saying''0'
+       73 20 74 65 61 63
+       68 65 72 20 73 61
+       79 69 6E 67 27 30
+ 002A 69 20 63 61 6E 20		    string3 db 'i can hardly understand''0'
+       68 61 72 64 6C 79
+       20 75 6E 64 65 72
+       73 74 61 6E 64 27
+       30
+ 0043 69 20 77 6F 75 6C		    string4 db 'i would better to sleep''0'
+       64 20 62 65 74 74
+       65 72 20 74 6F 20
+       73 6C 65 65 70 27
+       30
+				    
+ 005C 0000 R 0012 R 002A R	    table dw string1, string2, string3, string4
+       0043 R
+				     
+ 0064				DATAS ENDS
+
+ 0000				STACKS SEGMENT
+ 0000  0008 [			    dw 8 dup(0)
+        0000
+       ]
+ 0010				STACKS ENDS
+
+ 0000				CODES SEGMENT
+				    ASSUME CS:CODES,DS:DATAS,SS:STACKS
+ 0000				START:
+ 0000  B8 ---- R		    MOV AX,DATAS
+ 0003  8E D8			    MOV DS,AX
+ 0005  B8 ---- R		    mov ax, stacks
+ 0008  8E D0			    mov ss, ax
+ 000A  BC 0010			    mov sp, 16
+				    
+ 000D  B9 0004			    mov cx, 4
+ 0010  BD 0000			    mov bp, 0
+				    
+ 0013				    s:
+ 0013  51			    	push cx
+ 0014  3E: 8B 9E 005C R		    	mov bx, table[bp]
+ 0019  BE 0000			    	mov si, 0
+ 001C  BF 0000			    	mov di, 0
+				    	
+ 001F  B9 0032			    	mov cx, 50
+ 0022				    	s1:
+ 0022  8A 00			    		mov al, [bx+si]
+ 0024  3C 30			    		cmp al, '0'
+ 0026  74 0C			    		je ok
+ 0028  3C 20			    		cmp al, ' '
+ 002A  74 04			    		je ok1
+ 002C  24 DF			    		and al, 11011111B
+ 002E  88 00			    		mov [bx+si], al
+ 0030				    		ok1:
+ 0030  46			    			inc si
+ 0031  47			    			inc di
+ 0032  E2 EE			    			loop s1
+ 0034				    		ok:
+ 0034  83 C5 02			    			add bp, 2
+ 0037  59			    			pop cx
+ 0038  E2 D9			    			loop s
+				    ;此处输入代码段代码
+ 003A  B4 4C			    MOV AH,4CH
+ 003C  CD 21			    INT 21H
+ 003E				CODES ENDS
+				    END START
+Microsoft (R) Macro Assembler Version 6.11		    04/01/24 18:13:08
+tempfile.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+CODES  . . . . . . . . . . . . .	16 Bit	 003E	  Para	  Private 
+DATAS  . . . . . . . . . . . . .	16 Bit	 0064	  Para	  Private 
+STACKS . . . . . . . . . . . . .	16 Bit	 0010	  Para	  Private 
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+START  . . . . . . . . . . . . .	L Near	 0000	  CODES	
+ok1  . . . . . . . . . . . . . .	L Near	 0030	  CODES	
+ok . . . . . . . . . . . . . . .	L Near	 0034	  CODES	
+s1 . . . . . . . . . . . . . . .	L Near	 0022	  CODES	
+string1  . . . . . . . . . . . .	Byte	 0000	  DATAS	
+string2  . . . . . . . . . . . .	Byte	 0012	  DATAS	
+string3  . . . . . . . . . . . .	Byte	 002A	  DATAS	
+string4  . . . . . . . . . . . .	Byte	 0043	  DATAS	
+s  . . . . . . . . . . . . . . .	L Near	 0013	  CODES	
+table  . . . . . . . . . . . . .	Word	 005C	  DATAS	
+
+	   0 Warnings
+	   0 Errors

@@ -1,0 +1,96 @@
+Microsoft (R) Macro Assembler Version 6.11		    06/22/24 19:51:29
+tempfile.asm						     Page 1 - 1
+
+
+ 0000				DATA SEGMENT
+ 0000 57 52 23 56 1F			ARR DB 57H, 52H, 23H, 56H, 1FH
+ 0005 00				COUNT DB ?
+ 0006 = 0006				LEN EQU $-ARR
+ 0006				DATA ENDS
+
+ 0000				STACK SEGMENT
+ 0000  0028 [				DB 40 DUP(0)
+        00
+       ]
+ 0028				STACK ENDS
+
+ 0000				CODE SEGMENT
+				ASSUME CS:CODE, SS:STACK, DS:DATA
+ 0000				BEGIN:
+ 0000  B8 ---- R			MOV AX, DATA
+ 0003  8C D8				MOV AX, DS
+					
+ 0005  E8 0008				CALL COUNT_NUM
+ 0008  8A 1E 0005 R			MOV BL, COUNT	
+
+ 000C  B4 4C				MOV AH, 4CH
+ 000E  CD 21				INT 21H
+
+ 0010				COUNT_NUM:
+ 0010  50				PUSH AX
+ 0011  52				PUSH DX
+ 0012  33 C0				XOR AX, AX
+ 0014  8D 36 0000 R			LEA SI, ARR
+ 0018  B1 06				MOV CL, LEN
+					
+ 001A				S:
+ 001A  8A 04				MOV AL, [SI]
+ 001C  F6 D8				NEG AL
+ 001E  3C 0A				CMP AL, 10
+ 0020  72 02				JB L1
+ 0022  EB 0B				JMP L2
+
+ 0024				L1:
+ 0024  FE 06 0005 R			INC COUNT
+ 0028  46				INC SI
+ 0029  FE C9				DEC CL
+ 002B  75 ED				JNZ S
+ 002D  EB 0B				JMP EXIT
+
+ 002F				L2:
+ 002F  3C 14				CMP AL, 20
+ 0031  77 F1				JA L1
+ 0033  46				INC SI
+ 0034  FE C9				DEC CL
+ 0036  75 E2				JNZ S
+ 0038  EB 00				JMP EXIT
+
+ 003A				EXIT:
+ 003A  5A				POP DX
+ 003B  58				POP AX
+ 003C  C3				RET
+
+ 003D				CODE ENDS
+				END BEGIN
+					
+Microsoft (R) Macro Assembler Version 6.11		    06/22/24 19:51:29
+tempfile.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+CODE . . . . . . . . . . . . . .	16 Bit	 003D	  Para	  Private 
+DATA . . . . . . . . . . . . . .	16 Bit	 0006	  Para	  Private 
+STACK  . . . . . . . . . . . . .	16 Bit	 0028	  Para	  Private 
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+ARR  . . . . . . . . . . . . . .	Byte	 0000	  DATA	
+BEGIN  . . . . . . . . . . . . .	L Near	 0000	  CODE	
+COUNT_NUM  . . . . . . . . . . .	L Near	 0010	  CODE	
+COUNT  . . . . . . . . . . . . .	Byte	 0005	  DATA	
+EXIT . . . . . . . . . . . . . .	L Near	 003A	  CODE	
+L1 . . . . . . . . . . . . . . .	L Near	 0024	  CODE	
+L2 . . . . . . . . . . . . . . .	L Near	 002F	  CODE	
+LEN  . . . . . . . . . . . . . .	Number	 0006h	 
+S  . . . . . . . . . . . . . . .	L Near	 001A	  CODE	
+
+	   0 Warnings
+	   0 Errors
