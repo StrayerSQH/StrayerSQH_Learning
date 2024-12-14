@@ -1,0 +1,30 @@
+ISim log file
+Running: C:\Documents and Settings\adder_4bit\adder_4bit_tb_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb C:/Documents and Settings/adder_4bit/adder_4bit_tb_isim_beh.wdb 
+ISim P.20131013 (signature 0x8ef4fb42)
+----------------------------------------------------------------------
+INFO:Security:61 - The XILINXD_LICENSE_FILE environment variable is not set.
+INFO:Security:63 - The LM_LICENSE_FILE environment variable is not set.
+INFO:Security:68 - For more information or for assistance in obtaining 
+ a license, please run the Xilinx License Configuration Manager
+       (xlcm or "Manage Xilinx Licenses".)
+INFO:Security:68a - user is cslab, on host B30901110.
+ERROR:Security:14 - No feature was available for 'ISIM'.
+
+Feature start date is in the future.
+Feature:       ISIM
+Start date:    19-May-2016
+License path:  C:/.Xilinx\vivado_2037.lic;D:\Xilinx\14.7\ISE_DS\ISE\/coregen/core_licenses\Xilinx.lic;D:\Xilinx\14.7\ISE_DS\ISE\/coregen/core_licenses\XilinxFree.lic;D:\Xilinx\14.7\ISE_DS\EDK/data/core_licenses\Xilinx.lic;
+FLEXnet Licensing error:-31,392
+For further information, refer to the FLEXnet Licensing documentation,
+available at "www.flexerasoftware.com".
+----------------------------------------------------------------------
+WARNING: A full ISim License cannot be checked out due to the issues listed above. Please use Xilinx License Configuration Manager to fix these issues in order to check out a full ISim license.
+WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
+This is a Lite version of ISim.
+Time resolution is 1 ps
+# onerror resume
+# wave add /
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+# step

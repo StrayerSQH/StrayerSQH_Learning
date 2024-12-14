@@ -1,0 +1,97 @@
+Microsoft (R) Macro Assembler Version 6.11		    06/04/24 22:33:27
+tempfile.asm						     Page 1 - 1
+
+
+ 0000				DATA SEGMENT
+ 0000 53 75 6E 20			STRING1 DB 'Sun '
+ 0004 = 0004				LEN1 EQU $-STRING1
+ 0004 51 69 61 6E 68 61			STRING2 DB 'Qianhao!$'
+       6F 21 24
+ 000D = 0009				LEN2 EQU $-STRING2
+ 000D  000C [				NEWSTRING DB 12 DUP(0)
+        00
+       ]
+ 0019				DATA ENDS
+
+ 0000				STACK1 SEGMENT STACK
+ 0000  000A [				DB 10 DUP(0)
+        00
+       ]
+ 000A				STACK1 ENDS
+
+ 0000				CODE SEGMENT
+				ASSUME CS:CODE, DS:DATA, SS:STACK1
+ 0000				BEGIN:
+ 0000  B8 ---- R			MOV AX, DATA
+ 0003  8E D8				MOV DS, AX
+ 0005  8E C0				MOV ES, AX
+ 0007  E8 0004				CALL STRCAT
+					
+					
+ 000A  B4 4C				MOV AH, 4CH
+ 000C  CD 21				INT 21H
+					
+ 000E					STRCAT:
+ 000E  50					PUSH AX
+ 000F  52					PUSH DX
+ 0010  8D 36 0000 R				LEA SI, STRING1
+ 0014  8D 3E 000D R				LEA DI, NEWSTRING
+ 0018  33 C9					XOR CX, CX
+ 001A  B1 04					MOV CL, LEN1
+ 001C						LOP1:
+ 001C  8A 04						MOV AL, [SI]
+ 001E  88 05						MOV [DI], AL
+ 0020  46						INC SI
+ 0021  47						INC DI
+ 0022  E2 F8						LOOP LOP1
+ 0024  8D 36 0004 R				LEA SI, STRING2
+ 0028  B1 09					MOV CL, LEN2
+ 002A						LOP2:
+ 002A  8A 04						MOV AL, [SI]
+ 002C  88 05						MOV [DI], AL
+ 002E  46						INC SI
+ 002F  47						INC DI
+ 0030  E2 F8						LOOP LOP2
+ 0032  B4 09					MOV AH, 09H
+ 0034  BA 000D R				MOV DX, OFFSET NEWSTRING
+ 0037  CD 21					INT 21H
+ 0039  5A					POP DX
+ 003A  58					POP AX
+ 003B  C3					RET 
+ 003C				CODE ENDS
+				END BEGIN
+					
+
+					
+
+Microsoft (R) Macro Assembler Version 6.11		    06/04/24 22:33:27
+tempfile.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+CODE . . . . . . . . . . . . . .	16 Bit	 003C	  Para	  Private 
+DATA . . . . . . . . . . . . . .	16 Bit	 0019	  Para	  Private 
+STACK1 . . . . . . . . . . . . .	16 Bit	 000A	  Para	  Stack	  
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+BEGIN  . . . . . . . . . . . . .	L Near	 0000	  CODE	
+LEN1 . . . . . . . . . . . . . .	Number	 0004h	 
+LEN2 . . . . . . . . . . . . . .	Number	 0009h	 
+LOP1 . . . . . . . . . . . . . .	L Near	 001C	  CODE	
+LOP2 . . . . . . . . . . . . . .	L Near	 002A	  CODE	
+NEWSTRING  . . . . . . . . . . .	Byte	 000D	  DATA	
+STRCAT . . . . . . . . . . . . .	L Near	 000E	  CODE	
+STRING1  . . . . . . . . . . . .	Byte	 0000	  DATA	
+STRING2  . . . . . . . . . . . .	Byte	 0004	  DATA	
+
+	   0 Warnings
+	   0 Errors

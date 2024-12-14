@@ -1,0 +1,69 @@
+Microsoft (R) Macro Assembler Version 6.11		    04/01/24 17:47:58
+tempfile.asm						     Page 1 - 1
+
+
+				ASSUME CS:CODES, DS:DATAS, SS:STACKS
+ 0000				DATAS SEGMENT
+ 0000 57 68 6F 20 69 73			string1 db 'Who is your daddy'
+       20 79 6F 75 72 20
+       64 61 64 64 79
+ 0011 50 45 4E 54 59 20			string2 db 'PENTY KILL'
+       4B 49 4C 4C
+ 001B 68 61 68 61 68 61			string3 db 'hahaha'
+ 0021				DATAS ENDS
+
+ 0000				STACKS SEGMENT
+ 0000  0008 [			    dw 8 dup(0)
+        0000
+       ]
+ 0010				STACKS ENDS
+
+ 0000				CODES SEGMENT
+ 0000				    START:
+ 0000  B8 ---- R		    MOV AX,DATAS
+ 0003  8E D8			    MOV DS,AX
+ 0005  B8 ---- R		    MOV AX, STACKS
+ 0008  8E D0			    MOV SS, AX
+ 000A  BC 0010			    MOV SP, 16
+ 000D  B9 0006			    MOV CX, 6
+				    
+ 0010  BB 0000			    MOV BX, 0
+				    
+ 0013				    S1:
+ 0013  8A 47 1B			    	MOV AL, [BX + 001BH];001BH代表string1和string2的总长度为27
+ 0016  24 DF			    	AND AL, 11011111B;将小写转为大写
+ 0018  88 47 1B			    	MOV [BX + 001BH], AL
+ 001B  43			    	INC BX
+ 001C  E2 F5			    	LOOP S1
+				    
+ 001E  B4 4C			    MOV AH,4CH
+ 0020  CD 21			    INT 21H
+ 0022				CODES ENDS
+				    END START
+Microsoft (R) Macro Assembler Version 6.11		    04/01/24 17:47:58
+tempfile.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+CODES  . . . . . . . . . . . . .	16 Bit	 0022	  Para	  Private 
+DATAS  . . . . . . . . . . . . .	16 Bit	 0021	  Para	  Private 
+STACKS . . . . . . . . . . . . .	16 Bit	 0010	  Para	  Private 
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+S1 . . . . . . . . . . . . . . .	L Near	 0013	  CODES	
+START  . . . . . . . . . . . . .	L Near	 0000	  CODES	
+string1  . . . . . . . . . . . .	Byte	 0000	  DATAS	
+string2  . . . . . . . . . . . .	Byte	 0011	  DATAS	
+string3  . . . . . . . . . . . .	Byte	 001B	  DATAS	
+
+	   0 Warnings
+	   0 Errors

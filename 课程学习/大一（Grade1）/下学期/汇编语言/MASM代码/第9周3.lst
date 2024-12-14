@@ -1,0 +1,88 @@
+Microsoft (R) Macro Assembler Version 6.11		    04/22/24 18:09:50
+tempfile.asm						     Page 1 - 1
+
+
+ 0000				DATAS SEGMENT
+ 0000 68 65 20 69 73 20		    string db 'he is 324 years old$'
+       33 32 34 20 79 65
+       61 72 73 20 6F 6C
+       64 24
+ 0014 = 0014			    strlen equ $-string
+ 0014  0014 [			    strtmp db strlen dup(0) 
+        00
+       ]
+ 0028				DATAS ENDS
+
+ 0000				STACKS SEGMENT
+ 0000  0010 [			    db 16 dup(0)
+        00
+       ]
+ 0010				STACKS ENDS
+
+ 0000				CODES SEGMENT
+				    ASSUME CS:CODES,DS:DATAS,SS:STACKS
+ 0000				START:
+ 0000  B8 ---- R		    MOV AX,DATAS
+ 0003  8E D8			    MOV DS,AX
+				    
+ 0005  8E C0			    mov es, ax
+ 0007  8D 36 0000 R		    lea si, string
+ 000B  8D 3E 0014 R		    lea di, strtmp
+ 000F  B9 0014			    mov cx, strlen
+ 0012  FC			    cld
+				    
+ 0013				    h:
+ 0013  AC			    	lodsb
+ 0014  3C 39			    	cmp al, '9'
+ 0016  77 06			    		ja l1
+ 0018  3C 30			    	cmp al, '0'
+ 001A  72 02			    		jb l1
+ 001C  EB 01			    	jmp next
+				    
+ 001E				    l1:
+ 001E  AA			    	stosb
+ 001F				    next:
+ 001F  E2 F2			    	loop h
+ 0021  8D 36 0014 R		    	lea si, strtmp
+ 0025  8D 3E 0000 R		    	lea di, string
+ 0029  B9 0014			    	mov cx, strlen
+ 002C  FC			    	cld
+ 002D  F3/ A4			    	rep movsb
+				    	
+ 002F  BA 0000 R		    mov dx, offset string
+ 0032  B4 09			   	mov ah, 09h
+ 0034  CD 21			   	int 21h
+				    
+ 0036  B4 4C			    MOV AH,4CH
+ 0038  CD 21			    INT 21H
+ 003A				CODES ENDS
+				    END START
+Microsoft (R) Macro Assembler Version 6.11		    04/22/24 18:09:50
+tempfile.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+CODES  . . . . . . . . . . . . .	16 Bit	 003A	  Para	  Private 
+DATAS  . . . . . . . . . . . . .	16 Bit	 0028	  Para	  Private 
+STACKS . . . . . . . . . . . . .	16 Bit	 0010	  Para	  Private 
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+START  . . . . . . . . . . . . .	L Near	 0000	  CODES	
+h  . . . . . . . . . . . . . . .	L Near	 0013	  CODES	
+l1 . . . . . . . . . . . . . . .	L Near	 001E	  CODES	
+next . . . . . . . . . . . . . .	L Near	 001F	  CODES	
+string . . . . . . . . . . . . .	Byte	 0000	  DATAS	
+strlen . . . . . . . . . . . . .	Number	 0014h	 
+strtmp . . . . . . . . . . . . .	Byte	 0014	  DATAS	
+
+	   0 Warnings
+	   0 Errors

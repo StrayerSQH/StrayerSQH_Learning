@@ -1,0 +1,36 @@
+Running: D:\Xilinx\14.7\ISE_DS\ISE\bin\nt\unwrapped\fuse.exe -intstyle ise -incremental -lib unisims_ver -lib unimacro_ver -lib xilinxcorelib_ver -lib secureip -o C:/Documents and Settings/muxSQH/top_mux_top_mux_sch_tb_isim_beh.exe -prj C:/Documents and Settings/muxSQH/top_mux_top_mux_sch_tb_beh.prj work.top_mux_top_mux_sch_tb work.glbl 
+ISim P.20131013 (signature 0x8ef4fb42)
+Number of CPUs detected in this system: 2
+Turning on mult-threading, number of parallel sub-compilation jobs: 4 
+Determining compilation order of HDL files
+Analyzing Verilog file "C:/Documents and Settings/muxSQH/mux2t1.vf" into library work
+Analyzing Verilog file "C:/Documents and Settings/muxSQH/mux2t1__4.vf" into library work
+Analyzing Verilog file "C:/Documents and Settings/muxSQH/mux8t1__4.vf" into library work
+Analyzing Verilog file "C:/Documents and Settings/muxSQH/rom.v" into library work
+Analyzing Verilog file "C:/Documents and Settings/muxSQH/mux8t1_8.vf" into library work
+Analyzing Verilog file "C:/Documents and Settings/muxSQH/buf8.v" into library work
+Analyzing Verilog file "C:/Documents and Settings/muxSQH/top_mux.vf" into library work
+Analyzing Verilog file "C:/Documents and Settings/muxSQH/top_mux_tb.v" into library work
+Analyzing Verilog file "D:/Xilinx/14.7/ISE_DS/ISE//verilog/src/glbl.v" into library work
+Starting static elaboration
+Completed static elaboration
+Fuse Memory Usage: 65732 KB
+Fuse CPU Usage: 327 ms
+Compiling module AND2
+Compiling module OR2
+Compiling module INV
+Compiling module mux2t1_MUSER_top_mux
+Compiling module mux2t1__4_MUSER_top_mux
+Compiling module mux8t1__4_MUSER_top_mux
+Compiling module mux8t1_8_MUSER_top_mux
+Compiling module rom
+Compiling module buf8
+Compiling module top_mux
+Compiling module top_mux_top_mux_sch_tb
+Compiling module glbl
+Time Resolution for simulation is 1ps.
+Waiting for 9 sub-compilation(s) to finish...
+Compiled 12 Verilog Units
+Built simulation executable C:/Documents and Settings/muxSQH/top_mux_top_mux_sch_tb_isim_beh.exe
+Fuse Memory Usage: 71240 KB
+Fuse CPU Usage: 436 ms

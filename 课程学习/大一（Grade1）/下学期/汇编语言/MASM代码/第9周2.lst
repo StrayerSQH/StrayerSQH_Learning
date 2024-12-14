@@ -1,0 +1,71 @@
+Microsoft (R) Macro Assembler Version 6.11		    04/22/24 17:47:22
+tempfile.asm						     Page 1 - 1
+
+
+ 0000				DATAS SEGMENT
+ 0000 74 68 69 73 20 63		    string1 db 'this course is over'
+       6F 75 72 73 65 20
+       69 73 20 6F 76 65
+       72
+ 0013  0028 [			    string2 db 40 dup(0)
+        00
+       ]
+ 003B				DATAS ENDS
+
+ 0000				STACKS SEGMENT
+ 0000  0010 [			    db 16 dup(0)
+        00
+       ]
+ 0010				STACKS ENDS
+
+ 0000				CODES SEGMENT
+				    ASSUME CS:CODES,DS:DATAS,SS:STACKS
+ 0000				START:
+ 0000  B8 ---- R		    MOV AX,DATAS
+ 0003  8E D8			    MOV DS,AX
+				    
+ 0005  8E C0			    mov es, ax
+ 0007  B8 ---- R		    mov ax, stacks
+ 000A  8E D0			    mov ss, ax
+ 000C  BC 0010			    mov sp, 16
+				    
+ 000F  8D 36 0000 R		    lea si, string1
+ 0013  8D 3E 0013 R		    lea di, string2
+				    
+ 0017  8B CF			    mov cx, di
+ 0019  2B CE			    sub cx, si
+ 001B  FC			    cld
+				    ;cld指令将DF标志设置为0，保证di和si递增
+				    ;std指令将DF标志设置为1，保证di和si递减
+				    
+ 001C  F3/ A4			    rep movsb
+				    
+ 001E  B4 4C			    MOV AH,4CH
+ 0020  CD 21			    INT 21H
+ 0022				CODES ENDS
+				    END START
+Microsoft (R) Macro Assembler Version 6.11		    04/22/24 17:47:22
+tempfile.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+CODES  . . . . . . . . . . . . .	16 Bit	 0022	  Para	  Private 
+DATAS  . . . . . . . . . . . . .	16 Bit	 003B	  Para	  Private 
+STACKS . . . . . . . . . . . . .	16 Bit	 0010	  Para	  Private 
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+START  . . . . . . . . . . . . .	L Near	 0000	  CODES	
+string1  . . . . . . . . . . . .	Byte	 0000	  DATAS	
+string2  . . . . . . . . . . . .	Byte	 0013	  DATAS	
+
+	   0 Warnings
+	   0 Errors

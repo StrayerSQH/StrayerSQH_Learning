@@ -1,0 +1,10 @@
+Command line:
+   top_mux_top_mux_sch_tb_isim_beh.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  1068
+
+Thu Nov 21 11:34:53 2024
+
+
+ Elaboration Time: 0.09375 sec

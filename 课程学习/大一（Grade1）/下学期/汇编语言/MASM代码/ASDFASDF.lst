@@ -1,0 +1,75 @@
+Microsoft (R) Macro Assembler Version 6.11		    06/14/24 19:05:57
+tempfile.asm						     Page 1 - 1
+
+
+ 0000				DATA SEGMENT
+ 0000 2312 3435 2320 2360		VAR1 DW 2312H, 3435H, 2320H, 2360H
+ 0008 = 0008				LEN EQU $-VAR1
+ 0008 00				COUNT DB ?
+ 0009				DATA ENDS
+
+ 0000				STACK SEGMENT
+ 0000  0040 [				DW 40H DUP(0)
+        0000
+       ]
+ 0080				STACK ENDS
+
+ 0000				CODE SEGMENT
+				ASSUME CS:CODE, DS:DATA, SS:STACK
+ 0000  B8 ---- R		BEGIN:MOV AX, DATA
+ 0003  8E D8				  MOV DS, AX
+ 0005  8D 36 0000 R			  LEA SI, VAR1
+ 0009  E8 0004				  CALL NUMCOUNT
+					  
+ 000C  B4 4C				  MOV AH, 4CH
+ 000E  CD 21				  INT 21H
+
+ 0010  50			NUMCOUNT:PUSH AX
+ 0011  52					 PUSH DX
+ 0012  B1 08				  	 MOV CL, LEN
+ 0014  80 24 01				  	 S:AND byte ptr[SI], 0001H
+ 0017  74 02				  	   JZ L1
+ 0019  EB 03				  	   JMP L2
+					  	 
+ 001B  46			L1:INC SI
+ 001C  E2 F6			   LOOP S
+ 001E  FE 06 0008 R		L2:INC COUNT
+ 0022  46			   INC SI
+ 0023  FE C9			   DEC CL
+ 0025  75 ED			   JNZ S
+ 0027  5A			   POP DX
+ 0028  58			   POP AX
+ 0029  C3			   RET
+
+ 002A				CODE ENDS
+				END BEGIN 	
+Microsoft (R) Macro Assembler Version 6.11		    06/14/24 19:05:57
+tempfile.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+CODE . . . . . . . . . . . . . .	16 Bit	 002A	  Para	  Private 
+DATA . . . . . . . . . . . . . .	16 Bit	 0009	  Para	  Private 
+STACK  . . . . . . . . . . . . .	16 Bit	 0080	  Para	  Private 
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+BEGIN  . . . . . . . . . . . . .	L Near	 0000	  CODE	
+COUNT  . . . . . . . . . . . . .	Byte	 0008	  DATA	
+L1 . . . . . . . . . . . . . . .	L Near	 001B	  CODE	
+L2 . . . . . . . . . . . . . . .	L Near	 001E	  CODE	
+LEN  . . . . . . . . . . . . . .	Number	 0008h	 
+NUMCOUNT . . . . . . . . . . . .	L Near	 0010	  CODE	
+S  . . . . . . . . . . . . . . .	L Near	 0014	  CODE	
+VAR1 . . . . . . . . . . . . . .	Word	 0000	  DATA	
+
+	   0 Warnings
+	   0 Errors

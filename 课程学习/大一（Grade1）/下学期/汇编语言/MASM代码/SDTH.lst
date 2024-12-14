@@ -1,0 +1,99 @@
+Microsoft (R) Macro Assembler Version 6.11		    06/14/24 19:46:08
+tempfile.asm						     Page 1 - 1
+
+
+ 0000				DATA SEGMENT
+ 0000 48 45 20 49 53 20			STRING1 DB 'HE IS 35 YEARS OLD'
+       33 35 20 59 45 41
+       52 53 20 4F 4C 44
+ 0012  0028 [				STRING2 DB 40 DUP(0)
+        00
+       ]
+ 003A = 003A				LEN EQU $-STRING1
+ 003A				DATA ENDS
+
+ 0000				STACK SEGMENT
+ 0000  0028 [				DW 40 DUP(0)
+        0000
+       ]
+ 0050				STACK ENDS
+
+ 0000				CODE SEGMENT
+				ASSUME CS:CODE, DS:DATA, SS:STACK
+ 0000				BEGIN:
+ 0000  B8 ---- R			MOV AX, DATA
+ 0003  8E D8				MOV DS, AX
+ 0005  8D 36 0000 R			LEA SI, STRING1
+ 0009  8D 3E 0012 R			LEA DI, STRING2
+					
+ 000D  E8 0004				CALL PROC_
+					
+ 0010  B4 4C				MOV AH, 4CH
+ 0012  CD 21				INT 21H
+
+ 0014				PROC_:
+ 0014  50				PUSH AX
+ 0015  52				PUSH DX
+					
+ 0016  B1 3A				MOV CL, LEN
+ 0018				S:
+ 0018  80 3C 30				CMP BYTE PTR [SI], '0'
+ 001B  72 07				JB L1
+ 001D  80 3C 39				CMP BYTE PTR [SI], '9'
+ 0020  77 02				JA L1
+ 0022  EB 0C				JMP L2
+					
+ 0024				L1:
+ 0024  8A 04				MOV AL, [SI]
+ 0026  88 05				MOV [DI], AL
+ 0028  46				INC SI
+ 0029  47				INC DI
+ 002A  FE C9				DEC CL
+ 002C  75 EA				JNZ S
+ 002E  EB 08				JMP EXIT
+
+ 0030				L2:
+ 0030  46				INC SI
+ 0031  47				INC DI
+ 0032  FE C9				DEC CL
+ 0034  75 E2				JNZ S
+ 0036  EB 00				JMP EXIT
+
+ 0038				EXIT:
+ 0038  5A				POP DX
+ 0039  58				POP AX
+ 003A  C3				RET
+
+ 003B				CODE ENDS
+				END BEGIN
+Microsoft (R) Macro Assembler Version 6.11		    06/14/24 19:46:08
+tempfile.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+CODE . . . . . . . . . . . . . .	16 Bit	 003B	  Para	  Private 
+DATA . . . . . . . . . . . . . .	16 Bit	 003A	  Para	  Private 
+STACK  . . . . . . . . . . . . .	16 Bit	 0050	  Para	  Private 
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+BEGIN  . . . . . . . . . . . . .	L Near	 0000	  CODE	
+EXIT . . . . . . . . . . . . . .	L Near	 0038	  CODE	
+L1 . . . . . . . . . . . . . . .	L Near	 0024	  CODE	
+L2 . . . . . . . . . . . . . . .	L Near	 0030	  CODE	
+LEN  . . . . . . . . . . . . . .	Number	 003Ah	 
+PROC_  . . . . . . . . . . . . .	L Near	 0014	  CODE	
+STRING1  . . . . . . . . . . . .	Byte	 0000	  DATA	
+STRING2  . . . . . . . . . . . .	Byte	 0012	  DATA	
+S  . . . . . . . . . . . . . . .	L Near	 0018	  CODE	
+
+	   0 Warnings
+	   0 Errors
