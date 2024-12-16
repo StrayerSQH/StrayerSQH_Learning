@@ -15,7 +15,7 @@ ArchBuilding::ArchBuilding(float x, float y, float w, float h, std::string s) : 
 
 	if (!archTexture.loadFromFile(ArchPicturePath))
 	{
-		std::cout << "½¨ÖþÎïÍ¼Æ¬¼ÓÔØÊ§°Ü£¬Çë¼ì²é¡£" << std::endl;
+		std::cout << "å»ºç­‘ç‰©å›¾ç‰‡åŠ è½½å¤±è´¥ï¼Œè¯·æ£€æŸ¥ã€‚" << std::endl;
 	}
 
 	archSprite.setTexture(archTexture);
@@ -65,7 +65,7 @@ void ArchBuilding::PictureChange(std::string s)
 
 	if (!archIntroductionTexture.loadFromFile(ArchIntroductionPath))
 	{
-		std::cout << "½¨ÖþÎï½éÉÜ¼ÓÔØÊ§°Ü£¬Çë¼ì²é¡£" << std::endl;
+		std::cout << "å»ºç­‘ç‰©ä»‹ç»åŠ è½½å¤±è´¥ï¼Œè¯·æ£€æŸ¥ã€‚" << std::endl;
 	}
 
 	archIntroductionSprite.setTexture(archIntroductionTexture);
