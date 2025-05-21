@@ -1,5 +1,3 @@
-Here’s an expanded version with more detailed explanations and emojis for better readability and engagement:
-
 ---
 
 # **StrayerSQH_Learning / 学习资料库** 📚💻  
