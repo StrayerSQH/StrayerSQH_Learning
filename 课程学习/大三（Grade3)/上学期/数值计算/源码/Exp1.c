@@ -38,7 +38,7 @@ void Question_Two()
 
 		if (abs(up_tmp - up) <= 1e-5)
 		{
-			cout << up << "   " << Function_Two(up) << endl;
+			cout << "根" << up << "   " << "f(x)在根为" << up << "时的值为：" << Function_One(up) << endl;
 			break;
 		}
 	}
@@ -56,7 +56,7 @@ void Question_One()
 		
 		if (abs(up_tmp - up) <= 1e-5)
 		{
-			cout << up << "   " << Function_One(up) << endl;
+			cout << "根" << up << "   " << "f(x)在根为" << up << "时的值为：" << Function_One(up) << endl;
 			break;
 		}
 	}
